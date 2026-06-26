@@ -242,4 +242,7 @@ List response:
 - **Layered backend:** routes → controllers → services → Prisma. Validation and auth are middleware; errors flow to a single centralized handler producing a consistent envelope.
 - **Token rotation:** the latest refresh token is stored per user; presenting a stale/revoked token is rejected. Logout nulls the stored token.
 - **Audit trail:** `createdById` / `updatedById` are stamped from the authenticated user on every write.
+
+<img width="1468" height="881" alt="Screenshot 2026-06-27 at 12 47 03 AM" src="https://github.com/user-attachments/assets/f8df4171-f81c-4690-8bf5-e9b287c738ed" />
+
 ```
