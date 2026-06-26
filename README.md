@@ -244,5 +244,8 @@ List response:
 - **Audit trail:** `createdById` / `updatedById` are stamped from the authenticated user on every write.
 
 <img width="1468" height="881" alt="Screenshot 2026-06-27 at 12 47 03 AM" src="https://github.com/user-attachments/assets/f8df4171-f81c-4690-8bf5-e9b287c738ed" />
+<img width="1470" height="882" alt="Screenshot 2026-06-27 at 12 45 50 AM" src="https://github.com/user-attachments/assets/66ff62c4-4570-4a86-8ec5-9ab7bc16449b" />
+<img width="1469" height="883" alt="Screenshot 2026-06-27 at 12 46 18 AM" src="https://github.com/user-attachments/assets/4dfafefb-1773-4d40-be7c-5906833257e9" />
+
 
 ```
