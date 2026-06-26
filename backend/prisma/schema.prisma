@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Audit columns (self-referential, nullable for first/seed users)
+  createdById String?
+  updatedById String?
+  createdBy   User?   @relation("UserCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?   @relation("UserUpdatedBy", fields: [updatedById], references: [id])
+
+  // Back-relations
+  createdUsers     User[]     @relation("UserCreatedBy")
+  updatedUsers     User[]     @relation("UserUpdatedBy")
+  createdIncidents Incident[] @relation("IncidentCreatedBy")
+  updatedIncidents Incident[] @relation("IncidentUpdatedBy")
+}
+
+model Incident {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  severity    Severity @default(MEDIUM)
+  status      Status   @default(OPEN)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Audit columns
+  createdById String
+  updatedById String
+  createdBy   User   @relation("IncidentCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User   @relation("IncidentUpdatedBy", fields: [updatedById], references: [id])
+
+  @@index([severity])
+  @@index([status])
+  @@index([createdAt])
+}
